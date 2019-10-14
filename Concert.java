@@ -1,10 +1,12 @@
 import java.text.NumberFormat;
 import java.text.DecimalFormat;
 import java.util.Locale;
+import java.util.Random;
 
 public class Concert {
     NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
     DecimalFormat decimal = new DecimalFormat("00");
+    Random rand = new Random();
     private int day;
     private int month;
     private int year;
@@ -16,6 +18,12 @@ public class Concert {
     private int lowerTickets;
     private int floorTickets;
     private double concertTotalSales;
+
+    // Used for purchasing tickets
+    private char ticketType;
+    private int numTickets;
+    private double pmt;
+
     private final double UPPER_PRICE = 29.90;
     private final double LOWER_PRICE = 99.0;
     private final double FLOOR_PRICE = 180.0;
@@ -307,6 +315,17 @@ public class Concert {
         return monthString;
     }
 
-
+	public void simulateCompanyBuyingTickets(int numberTickets) {
+        for (int i = 1; i <= numberTickets; ++i) {
+            
+            switch (rand.nextInt(3)) {
+                case 1: ticketType = 'U'; pmt = UPPER_PRICE; break;
+                case 2: ticketType = 'L'; pmt = LOWER_PRICE; break;
+                case 3: ticketType = 'F'; pmt = FLOOR_PRICE; break;
+            }
+            numTickets = 1;
+            buyTickets(ticketType, numTickets, pmt);
+        }
+    }
 
 }

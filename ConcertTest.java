@@ -1,7 +1,6 @@
 import java.util.Scanner;
 class ConcertTest {
     Scanner scnr = new Scanner(System.in);
-    private Boolean testing = true;
     public static void main(String[] args) {
         System.out.println("Testing starts");
         int errors = 0;
@@ -45,6 +44,4 @@ class ConcertTest {
 
 
 
-    }
-    
 }
