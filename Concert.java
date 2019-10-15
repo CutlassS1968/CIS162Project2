@@ -67,13 +67,14 @@ public class Concert {
     }
 
     private void parseDate(String date) {   // Parse the date into a dates[] array and sets each variable equal to the coresponding index
+        Boolean bool = true;
         String[] dates =  date.split("/");
         for (int i = 0; i <= 3; i++) {
             switch(i) {
                 case 0: // Makes sure month is above 0
                 if (isValid(Integer.parseInt(dates[i]))) month = Integer.parseInt(dates[i]);
                 else {
-                    i = 4;
+                    bool = false;
                     System.out.println("ERROR: Month is a negative number and is invalid");
                 }
                 break;
@@ -81,7 +82,7 @@ public class Concert {
                 case 1: // Makes sure day is above 0
                 if (isValid(Integer.parseInt(dates[i]))) day = Integer.parseInt(dates[i]);
                 else {
-                    i = 4;
+                    bool = false;
                     System.out.println("ERROR: Day is a negative number and is invalid");
                 }
                 break;
@@ -89,13 +90,13 @@ public class Concert {
                 case 2: // Makes sure year is above 0
                 if (isValid(Integer.parseInt(dates[i]))) year = Integer.parseInt(dates[i]);
                 else {
-                    i = 4;
+                    bool = false;
                     System.out.println("ERROR: Year is a negative number and is invalid");
                 }
                 break;
             }
         }
-        if (i == 0) setDate(month, day, year); // If the date doesnt contain a negative number, check for valid dates in isDateValid() method
+        if (bool) setDate(month, day, year); // If the date doesnt contain a negative number, check for valid dates in isDateValid() method
         else {
             System.out.println("** Please change the date and restart the program **");
             
@@ -110,7 +111,7 @@ public class Concert {
                         if ((UPPER_PRICE * numTickets) <= pmt) {                    // If the price payed is correct
                             concertTotalSales = concertTotalSales + pmt;            // Adds to total concert sales
                             upperTickets = upperTickets - numTickets;               // Subtracts from number of tickets available
-                            System.out.println("Transaction: Number tickets Upper Section: " + numTickets + ", total: " + currency.format(pmt));
+                            //System.out.println("Transaction: Number tickets Upper Section: " + numTickets + ", total: " + currency.format(pmt));
                         } else System.out.println("ERROR: " + pmt + " is not enought money for " + numTickets + " tickets in the Upper Section.");
                     }else System.out.println("ERROR: There are only " + upperTickets + " tickets left in the upper section, please pick a different amount of tickets or a different section");
                 break;
@@ -119,7 +120,7 @@ public class Concert {
                         if (pmt >= (LOWER_PRICE * numTickets)) {                    // If the price payed is correct
                             concertTotalSales = concertTotalSales + pmt;            // Adds to total concert sales
                             lowerTickets = lowerTickets - numTickets;               // Subtracts from number of tickets available
-                            System.out.println("Transaction: Number tickets Lower Section: " + numTickets + ", total: " + currency.format(pmt));
+                            //System.out.println("Transaction: Number tickets Lower Section: " + numTickets + ", total: " + currency.format(pmt));
                         } else System.out.println("ERROR: " + pmt + " is not enought money for " + numTickets + " tickets in the Lower Section.");
                     }else System.out.println("ERROR: There are only " + lowerTickets + " tickets left in the Lower Section, please pick a different amount of tickets or a different section");
                 break;
@@ -128,7 +129,7 @@ public class Concert {
                         if (pmt >= (UPPER_PRICE * numTickets)) {                    // If the price payed is correct
                             concertTotalSales = concertTotalSales + pmt;            // Adds to total concert sales
                             floorTickets = floorTickets - numTickets;               // Subtracts from number of tickets availble
-                            System.out.println("Transaction: Number tickets Floor Section: " + numTickets + ", total: " + currency.format(pmt));
+                            //System.out.println("Transaction: Number tickets Floor Section: " + numTickets + ", total: " + currency.format(pmt));
                         } else System.out.println("ERROR: " + pmt + " is not enought money for " + numTickets + " tickets in the Floor Section.");
                     }else System.out.println("ERROR: There are only " + floorTickets + " tickets left in the Floor Section, please pick a different amount of tickets or a different section");
                 break;
@@ -167,7 +168,7 @@ public class Concert {
         case 'U': return UPPER_PRICE;
         case 'L': return LOWER_PRICE;
         case 'F': return FLOOR_PRICE;
-        default : return "ERROR: Incorrect ticket type";
+        default : System.out.println("ERROR: Incorrect ticket type"); return 0.0;
         }
     }
     
@@ -197,6 +198,10 @@ public class Concert {
 
     public double getTotalSales() {
         return concertTotalSales;
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public void printReport() {     // Prints a report of all concert instance variables
@@ -318,7 +323,7 @@ public class Concert {
 	public void simulateCompanyBuyingTickets(int numberTickets) {
         for (int i = 1; i <= numberTickets; ++i) {
             
-            switch (rand.nextInt(3)) {
+            switch (rand.nextInt(4)) {
                 case 1: ticketType = 'U'; pmt = UPPER_PRICE; break;
                 case 2: ticketType = 'L'; pmt = LOWER_PRICE; break;
                 case 3: ticketType = 'F'; pmt = FLOOR_PRICE; break;
